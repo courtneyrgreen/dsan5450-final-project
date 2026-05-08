@@ -1,0 +1,14 @@
+# large raw data files
+data/arrests_2016-present.csv
+data/crimes_2016-present.csv
+data/isr/*
+
+# python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# quarto build artifacts
+docs/site_libs/
+docs/index_files/
+docs/_manuscript/
