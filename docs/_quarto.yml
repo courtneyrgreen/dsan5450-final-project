@@ -1,0 +1,13 @@
+project:
+  type: default
+
+format:
+  html:
+    theme: [default, custom.scss]
+    embed-resources: true
+  pdf:
+    documentclass: article
+  docx: default
+
+execute:
+  freeze: true
