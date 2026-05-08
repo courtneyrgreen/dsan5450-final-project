@@ -1,7 +1,5 @@
 /*-- scss:defaults --*/
-$font-family-sans-serif: 'Computer Modern Serif', serif;
 $font-family-serif: 'Computer Modern Serif', serif;
-$headings-font-family: 'Computer Modern Serif', serif;
 
 /*-- scss:rules --*/
 
@@ -83,9 +81,14 @@ $headings-font-family: 'Computer Modern Serif', serif;
   font-style: italic;
 }
 
-body, p, li, td, th, div, span, h1, h2, h3, h4, h5, h6 {
+body, p, li, td, th {
   font-family: 'Computer Modern Serif', serif !important;
 }
+
+h1, h2, h3, h4, h5, h6, .subtitle, .quarto-title-meta {
+  font-family: var(--bs-font-sans-serif) !important;
+}
+
 
 code, pre, .sourceCode {
   font-family: 'Computer Modern Typewriter', monospace !important;

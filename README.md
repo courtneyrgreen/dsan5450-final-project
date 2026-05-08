@@ -26,10 +26,12 @@ This project analyzes whether policing activity generates the data later used to
 │   ├── ACS_5_Year_Data_by_Community_Area.csv
 │   ├── Strategic_Subject_List_-_Historical_20260407.csv
 │   └── ca_month_dataset.csv    # Final dataset output by build_dataset.py
-├── docs/
-│   ├── index.qmd           # Main paper (Quarto manuscript)
-│   ├── references.bib      # All citations
-│   └── _quarto.yml         # Quarto project config
+└── docs/
+    ├── index.qmd           # Main paper (Quarto manuscript)
+    ├── references.bib      # All citations
+    ├── _quarto.yml         # Quarto project config
+    ├── custom.scss         # Computer Modern font styling
+    └── fonts/              # Local Computer Modern font files
 ```
 
 ---

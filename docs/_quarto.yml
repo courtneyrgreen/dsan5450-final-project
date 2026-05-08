@@ -5,9 +5,14 @@ format:
   html:
     theme: [default, custom.scss]
     embed-resources: true
+    toc: true
+    number-sections: true
+    other-links:
+      - text: GitHub Repository
+        icon: github
+        href: https://github.com/courtneyrgreen/dsan5450-final-project
   pdf:
     documentclass: article
-  docx: default
 
 execute:
   freeze: true

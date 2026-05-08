@@ -7,7 +7,6 @@ authors:
     roles: writing
     corresponding: true
 date: "May 8, 2026"
-mainfont: Computer Modern
 bibliography: references.bib
 jupyter: python3
 ---
@@ -52,17 +51,7 @@ The contribution of this project is threefold. First, it provides the empirical 
 
 The causal structure motivating the analysis is represented below. Police presence influences both arrests and reported crime directly, meaning reported crime cannot be treated as a clean measure of underlying criminal activity. The feedback loop of interest runs from arrests at time *t* to police presence at time *t+1*, tested here using one-month lags.
 
-```{mermaid}
-flowchart LR
-  A[Race / Demographics] --> B[Police Presence t]
-  C[Prior Arrests t-1] --> B
-  D[Actual Crime] --> E[Reported Crime]
-  D --> F[Arrests t]
-  B --> E
-  B --> F
-  E --> F
-  F --> G[Police Presence t+1]
-```
+![](diagram.png)
 
 Each of the three administrative datasets is aggregated at the community-area-by-month level: a spatial-temporal unit that makes it possible to compare enforcement and crime patterns throughout neighborhoods over time. For the crimes and arrests datasets, aggregation produces monthly incident and arrest counts within each community area. The ISR dataset, initially recorded at the police beat level, is realigned to the community area schema by assigning each beat to the community area it overlaps with most, ensuring analytic coherence and comparability across all datasets. Months with no recorded activity are kept as zero-count observations to reduce selection bias and maintain the longitudinal panel’s integrity. This approach hinders enforcement metrics from being overstated by focusing only on periods of high police activity.
 
@@ -212,13 +201,13 @@ Prior police stops consistently predict arrests in the current month, regardless
 
 It’s important for policymakers to recognize that the problem doesn’t lie solely in the models themselves; it lies in the data-generating process. Conversations about how to fix predictive policing mostly focus on algorithmic transparency, testing bias, and audit models, all of which matter but address the wrong part of the problem. If you’re using data that’s shaped by old enforcement patterns instead of actual crime rates, even a fair, technically sound algorithm just repeats those original biases. It ends up magnifying disparities instead of fixing them. The real problem starts earlier, with how the data gets made. Policy changes need to target that step. This paper offers three recommendations for city governments, police oversight agencies, and federal bodies overseeing or funding predictive policing.
 
-### Recommendation 1: Audit the Data-Generating Process Before Using Any Tool
+### Audit the Data-Generating Process Before Using Any Tool
 
 Any predictive policing tool that uses arrest records, stop data, or other officer-initiated enforcement outcomes as training inputs shouldn’t be deployed without a thorough audit of the data-generating process.  Distinctive from an algorithmic audit, this type of audit wouldn’t just check whether model p from an algorithmic audit; it would check whether predictions land fairly across demographic lines; it would also assess whether the inputs themselves faithfully reflect what the model claims to predict. Specifically, this audit would to require the deploying agency to document: what share of training data comes from officer-initiated activity versus civilian-reported incidents, whether stop and arrest rates in the training data vary systematically by neighborhood racial composition after controlling for reported crime, and whether the model has been tested on citizen-reported crime as an alternative input. If a department cannot prove that its training data reflects something other than prior enforcement patterns, deployment should not be approved.
 
 Chicago's Strategic Subject List is a case study in what happens without this requirement. The SSL assigned risk scores based heavily on prior arrests and co-arrest network ties, both of which, as this analysis shows, are predicted by prior police presence independent of reported crime. The model ended up predicting mainly where officers already focused, not where risk was higher. If anyone had required a data audit up front, the system would've failed that test before it ever influenced any real decision. A data audit requirement would have flagged this before the system was used to make real decisions about real people.
 
-### Recommendation 2: Separate Officer-Initiated Data from Civilian-Reported Data in All Public Safety Reporting
+### Separate Officer-Initiated Data from Civilian-Reported Data in All Public Safety Reporting
 
 Police departments should be required to break down their safety data by where it comes from and how it was generated, such that reported crime incidents initiated by civilian calls for service should be tracked and reported separately from officer-initiated enforcement activity, such as investigatory stops, proactive arrests, and field interviews.  Right now, departments usually lump all these numbers together into unified crime statistics, which makes it hard to tell whether “crime data” actually reflects crime or just reflects where police choose to focus.
 
@@ -226,13 +215,13 @@ Splitting up the data builds accountability; policymakers and the public can see
 
 Second, it cleans up the data, especially for any future predictive tools. Civilian-reported incidents aren’t perfect, but they’re less tangled in the endless feedback loops that happen when police rely on their own enforcement numbers. Lum and Isaac (2016) pointed this out, a system using citizen reports instead of arrest data is less tangled in the endless feedback loops that happen when police rely on their own enforcement numbers. Lum and Isaac (2016) pointed this out, a system using citizen reports instead of arrest data is less likely to spin itself into a loop.
 
-### Recommendation 3: Establish Sunset Requirements for Arrest-Based Risk Models
+### Establish Sunset Requirements for Arrest-Based Risk Models
 
 Any system that scores risk based on arrest data needs a built-in sunset review, with no longer than three years between reviews.  During this review, the model should be evaluated for predictive accuracy and evidence of the feedback loop documented here: specifically, whether the neighborhoods or individuals flagged by the model have higher subsequent arrest rates because they were targeted, rather than because they posed independently measurable higher risk.
 
 This recommendation follows directly from the causal structure used throughout this paper. When a model sends police to a neighborhood,, it generates arrests there, which feed back into the model as confirmation that the neighborhood is high risk. Without a formal sunset review to pick up on this, a model can persist indefinitely while its apparent accuracy is a result of its own targeting decisions rather than genuine predictive validity. The SSL operated without this kind of review until it was decommissioned in 2019, a process driven by FOIA litigation from the Chicago Sun-Times, sustained advocacy from the ACLU of Illinois, and a published investigation by Upturn that found the model's scores were driven almost entirely by age rather than any meaningful risk signal [@aclu_il_2020; @upturn2017]. Sunset requirements would institutionalize what currently depends on outside pressure.
 
-### Conclusion
+## Conclusion
 
 The central argument of this paper is that policing data is not a neutral starting point; it is an output of an enforcement system, shaped by where departments deploy officers, which encounters get recorded, and which communities bear the weight of proactive policing. When that data is fed into predictive systems, the patterns embedded within get projected forward as risk, creating a closed loop in which policing justifies itself. The three recommendations above do not suggest the complete elimination of predictive tools or the dismantling of existing systems; instead, they ask the institutions that use these tools to understand what their training data actually measures. Auditing the data-generating process, separating officer-initiated from civilian-reported data, and including sunset reviews in the model’s lifecycle are practical steps that sincerely address the root cause in ways algorithmic fairness pursued in isolation cannot. Without them, algorithmic fairness actually perpetuates rather than remedies inequality
 
